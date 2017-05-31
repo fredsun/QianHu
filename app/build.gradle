@@ -28,6 +28,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'com.android.support:design:25.3.1'//bottomNavigation
+    compile 'com.android.support:support-vector-drawable:25.3.1'//矢量图
+    compile 'com.jakewharton:butterknife:8.6.0'//注解
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'//注解
 }
