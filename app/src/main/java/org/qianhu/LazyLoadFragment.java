@@ -49,6 +49,7 @@ public abstract class LazyLoadFragment extends BaseFragment {
             lazyLoad();
             isLoad = true;
         } else {
+            Log.i("fragment","isInit:"+isInit+" ,isLoad: "+isLoad+", isVisible: "+isVisible()+", getUserVisibleHint(): "+getUserVisibleHint());
             if (isLoad) {
                 stopLoad();
             }
@@ -76,7 +77,7 @@ public abstract class LazyLoadFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.i("fragment","setUserVisibleHint: "+isVisibleToUser);
+
         isCanLoadData();
     }
 

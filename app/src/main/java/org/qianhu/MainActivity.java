@@ -89,9 +89,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         home_view_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            //滑动过程钟不断调用
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.i("fragment","pageScroll");
+
             }
 
             @Override
