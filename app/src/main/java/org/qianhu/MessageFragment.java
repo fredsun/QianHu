@@ -6,7 +6,7 @@ import android.util.Log;
  * Created by fred on 2017/5/26.
  */
 
-public class ChatFragment extends LazyLoadFragment {
+public class MessageFragment extends LazyLoadFragment {
 
     @Override
     public void lazyLoad() {

@@ -1,7 +1,6 @@
 package org.qianhu;
 
 import android.support.annotation.NonNull;
-import android.support.design.internal.NavigationMenuItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new NotificationFragment();
                         break;
                     case 3:
-                        fragment = new ChatFragment();
+                        fragment = new MessageFragment();
                         break;
                     case 4:
                         fragment = new MeFragment();
