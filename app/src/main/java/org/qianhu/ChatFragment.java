@@ -16,7 +16,7 @@ public class ChatFragment extends LazyLoadFragment {
     @Override
     protected int getLayoutId() {
         Log.i("fragment","getLayoutId");
-        return R.layout.fragment_chat;
+        return R.layout.fragment_message;
     }
 
     @Override
