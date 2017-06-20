@@ -1,6 +1,9 @@
-package org.qianhu;
+package org.qianhu.app.ui.fragment;
 
 import android.util.Log;
+
+import org.qianhu.R;
+import org.qianhu.app.ui.fragment.LazyLoadFragment;
 
 /**
  * Created by fred on 2017/5/26.

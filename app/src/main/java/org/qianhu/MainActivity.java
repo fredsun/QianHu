@@ -10,6 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import org.qianhu.app.ui.fragment.DiscoveryFragment;
+import org.qianhu.app.ui.fragment.HomeFragment;
+import org.qianhu.app.ui.fragment.MeFragment;
+import org.qianhu.app.ui.fragment.MessageFragment;
+import org.qianhu.app.ui.fragment.NotificationFragment;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

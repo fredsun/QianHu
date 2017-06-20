@@ -1,96 +1,98 @@
-package org.qianhu;
+package org.qianhu.app.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import org.qianhu.R;
+
 /**
  * Created by fred on 2017/5/26.
  */
 
-public class DiscoveryFragment extends LazyLoadFragment {
+public class NotificationFragment extends LazyLoadFragment {
 
     @Override
     public void lazyLoad() {
-        Log.i("discoveryFragment","LazyLoad");
+        Log.i("notificationFragment","lazyLoad");
     }
 
     @Override
     protected int getLayoutId() {
-        Log.i("discoveryFragment","GetLayoutId");
-        return R.layout.fragment_discovery;
+        Log.i("notificationFragment","getLayoutId");
+        return R.layout.fragment_notification;
     }
 
     @Override
     public void stopLoad() {
         super.stopLoad();
-        Log.i("discoveryFragment","StopLoad");
+        Log.i("notificationFragment","stopLoad");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.i("discoveryFragment","DestroyView");
+        Log.i("notificationFragment","DestroyView");
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.i("discoveryFragment","setUserVisibleHint: "+isVisibleToUser);
+        Log.i("notificationFragment","setUserVisibleHint: "+isVisibleToUser);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("discoveryFragment","onResume");
+        Log.i("notificationFragment","onResume");
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.i("discoveryFragment","onAttach");
+        Log.i("notificationFragment","onAttach");
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("discoveryFragment","onCreate");
+        Log.i("notificationFragment","onCreate");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.i("discoveryFragment","onActivityCreated");
+        Log.i("notificationFragment","onActivityCreated");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.i("discoveryFragment","onStart");
+        Log.i("notificationFragment","onStart");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.i("discoveryFragment","onPause");
+        Log.i("notificationFragment","onPause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.i("discoveryFragment","onStop");
+        Log.i("notificationFragment","onStop");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("discoveryFragment","onDestroy");
+        Log.i("notificationFragment","onDestroy");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.i("discoveryFragment","onDetach");
+        Log.i("notificationFragment","onDetach");
     }
 }

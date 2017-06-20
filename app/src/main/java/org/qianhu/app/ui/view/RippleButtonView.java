@@ -1,4 +1,4 @@
-package org.qianhu.app.ui;
+package org.qianhu.app.ui.view;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

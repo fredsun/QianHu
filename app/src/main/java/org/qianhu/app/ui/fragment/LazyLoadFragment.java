@@ -1,4 +1,4 @@
-package org.qianhu;
+package org.qianhu.app.ui.fragment;
 
 /**
  * Created by fred on 2017/5/26.

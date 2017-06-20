@@ -8,16 +8,9 @@
     android:layout_height="wrap_content"
     android:text="homefragment"
     android:gravity="center"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="关注"
-        android:background="@drawable/ripple_button"
-        android:layout_gravity="center"/>
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/recyclver_view"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
 
-    <org.qianhu.app.ui.RevealFollowButton
-        android:layout_width="78dp"
-        android:layout_margin="13dp"
-        android:layout_height="wrap_content"
-        />
 </LinearLayout>
