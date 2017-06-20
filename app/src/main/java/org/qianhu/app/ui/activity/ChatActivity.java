@@ -50,6 +50,7 @@ public class ChatActivity extends AppCompatActivity {
                     adapter.notifyItemInserted(msgList.size() - 1);
                     msgRecyclerView.scrollToPosition(msgList.size() - 1);
                     inputText.setText("");
+
                 }
             }
         });
