@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<litepal>
+    <dbname value = "BookStore3" ></dbname>
+    <version value = "1"></version>
+    <list>
+        <mapping class="org.qianhu.database.Book"></mapping>
+        <mapping class="org.qianhu.database.Category"></mapping>
+    </list>
+</litepal>

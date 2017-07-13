@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
 
+import org.litepal.LitePalApplication;
 import org.qianhu.broadcast.NetworkConnectChangedReceiver;
 
 /**
@@ -35,6 +36,7 @@ public class APP extends Application {
         super.onCreate();
         app = this;
         initReceiver();
+        LitePalApplication.initialize(app);
     }
 
     private void initReceiver() {
