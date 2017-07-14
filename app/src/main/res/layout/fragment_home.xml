@@ -24,4 +24,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_take_photo"
         android:text="take photo"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_sel_photo"
+        android:text="选择照片"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_photo"/>
 </LinearLayout>
