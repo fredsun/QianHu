@@ -10,9 +10,15 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.qianhu.R;
+import org.qianhu.bean.App;
+import org.qianhu.utils.HttpCallbackListener;
+import org.qianhu.utils.HttpUtil;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -23,9 +29,12 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -52,26 +61,31 @@ public class NotificationFragment extends LazyLoadFragment {
     }
 
     private void sendRequestWithHttpURLConnection() {
-       new Thread(new Runnable() {
+       HttpUtil .sendOkHttpGETRequest("http://172.16.82.6/get_data.json", new Callback() {
            @Override
-           public void run() {
-               try{
-                   OkHttpClient client = new OkHttpClient();
-                   Request request = new Request.Builder()
-                           .url("http://172.16.82.6/get_data.json")
-                           .build();
-                   Response response = client.newCall(request).execute();
-                   String responseData = response.body().string();
-                   parseXMLWithPull(responseData);
-                   parseHJSONWithJSONObject(responseData);
-               }catch (Exception e){
-                   e.printStackTrace();
-               }
+           public void onFailure(Call call, IOException e) {
+
            }
-       }).start();
+
+           @Override
+           public void onResponse(Call call, Response response) throws IOException {
+               parseJSONWithGson(response.body().toString());
+           }
+       });
+
     }
 
-    private void parseHJSONWithJSONObject(String responseData) {
+    private void parseJSONWithGson(String responseData) {
+        Gson gson = new Gson();
+        List<App> appList = gson.fromJson(responseData, new TypeToken<List<App>>(){}.getType());
+        for (App app : appList){
+            Log.i("gson","id"+app.getId());
+            Log.i("gson","name"+app.getName());
+            Log.i("gson","version"+app.getVersion());
+        }
+    }
+
+    private void parseJSONWithJSONObject(String responseData) {
         try{
             JSONArray jsonArray = new JSONArray(responseData);
             for (int i = 0; i<jsonArray.length(); i++){
