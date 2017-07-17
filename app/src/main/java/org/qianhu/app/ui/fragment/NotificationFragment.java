@@ -10,6 +10,8 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.qianhu.R;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -56,16 +58,34 @@ public class NotificationFragment extends LazyLoadFragment {
                try{
                    OkHttpClient client = new OkHttpClient();
                    Request request = new Request.Builder()
-                           .url("http://172.16.82.6/get_data.xml")
+                           .url("http://172.16.82.6/get_data.json")
                            .build();
                    Response response = client.newCall(request).execute();
                    String responseData = response.body().string();
                    parseXMLWithPull(responseData);
+                   parseHJSONWithJSONObject(responseData);
                }catch (Exception e){
                    e.printStackTrace();
                }
            }
        }).start();
+    }
+
+    private void parseHJSONWithJSONObject(String responseData) {
+        try{
+            JSONArray jsonArray = new JSONArray(responseData);
+            for (int i = 0; i<jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String id = jsonObject.getString("id");
+                String name = jsonObject.getString("name");
+                String version = jsonObject.getString("version");
+                Log.i("json",id);
+                Log.i("json",name);
+                Log.i("json",version);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void parseXMLWithPull(String responseData) {
