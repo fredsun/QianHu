@@ -3,8 +3,34 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 <TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/tv_me_title"
     android:text="MeFragment"
     android:gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_change_text"
+        android:text="change_text"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_start_download"
+        android:text="start download"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_pause_download"
+        android:text="pause download"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_cancel_download"
+        android:text="cancel download"/>
+
+
 </LinearLayout>

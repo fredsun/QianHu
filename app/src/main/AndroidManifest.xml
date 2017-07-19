@@ -2,18 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.qianhu">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!--允许读取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!--允许读取wifi网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <!--测试打电话-->
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <!--测试通知震动-->
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <!--兼容4.4访问外部存储全线-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 允许读取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 允许读取wifi网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 测试打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 测试通知震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 兼容4.4访问外部存储全线 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".APP"
@@ -31,17 +30,21 @@
             </intent-filter>
         </activity>
         <activity android:name=".app.ui.activity.ChatActivity" />
+
         <provider
-            android:authorities="org.qianhu.fileprovider"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="org.qianhu.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
 
-
+        <service
+            android:name=".service.DownloadService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
