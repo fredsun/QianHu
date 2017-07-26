@@ -1,6 +1,7 @@
 package org.qianhu.app.ui.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +13,12 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +33,8 @@ import org.qianhu.service.DownloadService;
  */
 
 public class MeFragment extends LazyLoadFragment {
+    private Activity mActivity;
+    private AppCompatActivity mAppCompatActivity;
     private DownloadService.DownloadBinder downloadBinder;
     private ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -55,9 +63,40 @@ public class MeFragment extends LazyLoadFragment {
         }
     };
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbar, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.backup:
+            Toast.makeText(getActivity(), "you click the backup", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.delete:
+                Toast.makeText(getActivity(), "you click the delete", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.settings:
+                Toast.makeText(getActivity(), "you click the settings", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
+    }
+
     @Override
     public void lazyLoad() {
         Log.i("fragment","lazyLoad");
+        mActivity = getActivity();
+        mAppCompatActivity = (AppCompatActivity)mActivity;
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mAppCompatActivity.setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
 
         textView = (TextView) findViewById(R.id.tv_me_title);
         Button btn_change_text = (Button) findViewById(R.id.btn_change_text);
