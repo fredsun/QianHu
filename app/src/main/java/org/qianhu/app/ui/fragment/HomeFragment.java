@@ -26,6 +26,9 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -59,6 +62,17 @@ import static android.app.Activity.RESULT_OK;
 
 public class HomeFragment extends LazyLoadFragment {
 
+    private DrawerLayout mDrawerLayout;
+
+    private Fruit[] fruits = {new Fruit("Apple", R.drawable.ic_explore_black_24dp),
+            new Fruit("Banana", R.drawable.ic_forum_black_24dp),
+            new Fruit("Peach", R.drawable.ic_featured_play_list_black_24dp),
+            new Fruit("PineApple", R.drawable.ic_arrow_back_black_24dp)};
+
+    private List<Fruit> fruitList = new ArrayList<>();
+    private FruitAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Override
     public void lazyLoad() {
@@ -77,9 +91,53 @@ public class HomeFragment extends LazyLoadFragment {
                         }).show();
             }
         });
+
+        initFruit();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview_home);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new FruitAdapter(fruitList);
+        recyclerView.setAdapter(adapter);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshFruits();
+            }
+        });
     }
 
+    private void refreshFruits() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(2000);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initFruit();
+                        adapter.notifyDataSetChanged();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        }).start();
+    }
 
+    private void initFruit() {
+        fruitList.clear();
+      for (int i = 0; i<50; i++){
+          Random random = new Random();
+          int index = random.nextInt(fruits.length);
+          fruitList.add(fruits[index]);
+      }
+    }
 
 
     @Override
