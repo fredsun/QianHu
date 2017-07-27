@@ -1,12 +1,11 @@
 package org.qianhu.adapter;
 
 import android.content.Context;
-import android.provider.SyncStateContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import org.qianhu.app.ui.fragment.DiscoveryFragment;
+import org.qianhu.app.ui.fragment.DiscoverFragment;
 import org.qianhu.app.ui.fragment.HomeFragment;
 import org.qianhu.app.ui.fragment.MeFragment;
 import org.qianhu.app.ui.fragment.MessageFragment;
@@ -34,7 +33,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
                 fragment = new HomeFragment();
                 break;
             case 1:
-                fragment = new DiscoveryFragment();
+                fragment = new DiscoverFragment();
                 break;
             case 2:
                 fragment = new NotificationFragment();

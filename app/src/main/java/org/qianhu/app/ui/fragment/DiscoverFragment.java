@@ -1,23 +1,12 @@
 package org.qianhu.app.ui.fragment;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.view.View;
 
-import org.litepal.crud.DataSupport;
-import org.litepal.tablemanager.Connector;
 import org.qianhu.R;
 import org.qianhu.adapter.FruitAdapter;
-import org.qianhu.app.ui.fragment.LazyLoadFragment;
 import org.qianhu.bean.Fruit;
-import org.qianhu.database.Book;
 import org.qianhu.database.MyDatabaseHelper;
 
 import java.util.ArrayList;
@@ -28,14 +17,14 @@ import java.util.Random;
  * Created by fred on 2017/5/26.
  */
 
-public class DiscoveryFragment extends LazyLoadFragment {
+public class DiscoverFragment extends LazyLoadFragment {
     private List<Fruit> fruitList = new ArrayList<>();
 
     MyDatabaseHelper myDatabaseHelper;
     @Override
     public void lazyLoad() {
         initFruit();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclver_view);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_discover);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 //        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         StaggeredGridLayoutManager layoutManager = new
@@ -73,7 +62,7 @@ public class DiscoveryFragment extends LazyLoadFragment {
     @Override
     protected int getLayoutId() {
         Log.i("discoveryFragment","GetLayoutId");
-        return R.layout.fragment_discovery;
+        return R.layout.fragment_discover;
     }
 
     @Override

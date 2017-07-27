@@ -3,25 +3,21 @@ package org.qianhu;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.MenuItem;
 
-import org.qianhu.app.ui.fragment.DiscoveryFragment;
+import org.qianhu.app.ui.fragment.DiscoverFragment;
 import org.qianhu.app.ui.fragment.HomeFragment;
 import org.qianhu.app.ui.fragment.MeFragment;
 import org.qianhu.app.ui.fragment.MessageFragment;
@@ -87,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new HomeFragment();
                         break;
                     case 1:
-                        fragment = new DiscoveryFragment();
+                        fragment = new DiscoverFragment();
                         break;
                     case 2:
                         fragment = new NotificationFragment();
