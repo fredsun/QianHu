@@ -30,6 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".app.ui.activity.ChatActivity" />
+        <activity android:name=".app.ui.activity.HomeItemDetailActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

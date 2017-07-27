@@ -1,12 +1,17 @@
 package org.qianhu.app.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import org.qianhu.R;
 import org.qianhu.adapter.FruitAdapter;
+import org.qianhu.app.ui.activity.HomeItemDetailActivity;
 import org.qianhu.bean.Fruit;
+import org.qianhu.database.Book;
 import org.qianhu.database.MyDatabaseHelper;
 
 import java.util.ArrayList;
@@ -23,17 +28,25 @@ public class DiscoverFragment extends LazyLoadFragment {
     MyDatabaseHelper myDatabaseHelper;
     @Override
     public void lazyLoad() {
-        initFruit();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_discover);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        StaggeredGridLayoutManager layoutManager = new
-                StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        FruitAdapter adapter = new FruitAdapter(fruitList);
-        recyclerView.setAdapter(adapter);
-
-
+        Button btn_discover = (Button) findViewById(R.id.btn_discover);
+        btn_discover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HomeItemDetailActivity.class);
+                intent.putExtra(HomeItemDetailActivity.DETAIL_NAME, "123");
+                intent.putExtra(HomeItemDetailActivity.DETAIL_IMAGE_ID, R.drawable.icon);
+                startActivity(intent);
+            }
+        });
+//        initFruit();
+//        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_discover);
+////        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+////        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        StaggeredGridLayoutManager layoutManager = new
+//                StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
+//        recyclerView.setLayoutManager(layoutManager);
+//        FruitAdapter adapter = new FruitAdapter(fruitList);
+//        recyclerView.setAdapter(adapter);
     }
 
     private void initFruit() {
