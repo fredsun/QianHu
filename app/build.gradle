@@ -11,6 +11,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        jackOptions.enabled = true
+    }
+    compileOptions{
+        sourceCompatibility org.gradle.api.JavaVersion.VERSION_1_8;
+        targetCompatibility org.gradle.api.JavaVersion.VERSION_1_8;
     }
     buildTypes {
         release {

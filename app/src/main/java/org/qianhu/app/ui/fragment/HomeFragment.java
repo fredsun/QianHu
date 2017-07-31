@@ -77,9 +77,7 @@ public class HomeFragment extends LazyLoadFragment {
     @Override
     public void lazyLoad() {
         FloatingActionButton fab_home = (FloatingActionButton) findViewById(R.id.fab_home);
-        fab_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        fab_home.setOnClickListener(v -> {
                 Snackbar.make(v, "Data Deleted", Snackbar.LENGTH_SHORT)
                         .setAction("Undo", new View.OnClickListener() {
                             @Override
@@ -89,7 +87,7 @@ public class HomeFragment extends LazyLoadFragment {
                                         Toast.LENGTH_SHORT).show();
                             }
                         }).show();
-            }
+
         });
 
         initFruit();
