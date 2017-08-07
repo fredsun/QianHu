@@ -1,4 +1,4 @@
-package org.qianhu.database;
+package org.qianhu.app.database;
 
 /**
  * Created by fred on 2017/7/11.

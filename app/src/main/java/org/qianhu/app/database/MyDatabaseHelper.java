@@ -1,4 +1,4 @@
-package org.qianhu.database;
+package org.qianhu.app.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

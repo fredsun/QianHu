@@ -13,8 +13,8 @@ import org.litepal.tablemanager.Connector;
 import org.qianhu.R;
 import org.qianhu.adapter.FruitAdapter;
 import org.qianhu.bean.Fruit;
-import org.qianhu.database.Book;
-import org.qianhu.database.MyDatabaseHelper;
+import org.qianhu.app.database.Book;
+import org.qianhu.app.database.MyDatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;

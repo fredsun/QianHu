@@ -1,4 +1,4 @@
-package org.qianhu.database;
+package org.qianhu.app.database;
 
 import org.litepal.crud.DataSupport;
 

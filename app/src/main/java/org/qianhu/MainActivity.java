@@ -17,6 +17,7 @@ import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.view.MenuItem;
 
+import org.qianhu.app.ui.fragment.ChooseAreaFragment;
 import org.qianhu.app.ui.fragment.DiscoverFragment;
 import org.qianhu.app.ui.fragment.HomeFragment;
 import org.qianhu.app.ui.fragment.MeFragment;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (position){
                     case 0:
-                        fragment = new HomeFragment();
+                        fragment = new ChooseAreaFragment();
                         break;
                     case 1:
                         fragment = new DiscoverFragment();

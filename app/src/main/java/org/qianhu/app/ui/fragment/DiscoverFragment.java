@@ -1,18 +1,14 @@
 package org.qianhu.app.ui.fragment;
 
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import org.qianhu.R;
-import org.qianhu.adapter.FruitAdapter;
 import org.qianhu.app.ui.activity.HomeItemDetailActivity;
 import org.qianhu.bean.Fruit;
-import org.qianhu.database.Book;
-import org.qianhu.database.MyDatabaseHelper;
+import org.qianhu.app.database.MyDatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
