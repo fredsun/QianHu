@@ -33,6 +33,7 @@
         </activity>
         <activity android:name=".app.ui.activity.ChatActivity" />
         <activity android:name=".app.ui.activity.HomeItemDetailActivity" />
+        <activity android:name=".app.ui.activity.WeatherActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -2,6 +2,7 @@ package org.qianhu.app.ui.fragment;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -25,10 +26,12 @@ import org.qianhu.app.database.City;
 import org.qianhu.app.database.County;
 import org.qianhu.app.database.Province;
 import org.qianhu.app.database.WeatherDatabaseHelper;
+import org.qianhu.app.ui.activity.WeatherActivity;
 import org.qianhu.utils.HttpUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Call;
@@ -98,6 +101,11 @@ public class ChooseAreaFragment extends Fragment{
      */
     private int currentLevel;
 
+    /**
+     * 直辖市
+     * */
+    String[] municipalities=new String[]{"北京","天津","上海","重庆"};
+
 
     @Nullable
     @Override
@@ -127,7 +135,19 @@ public class ChooseAreaFragment extends Fragment{
                     queryCityFromDB(selectedProvince.getProvinceName());
                 }else if (currentLevel == LEVEL_CITY){
                     selectedCity = cityList.get(position);
-                    queryCountyFromDB(selectedCity.getCityName());
+                    if (Arrays.asList(municipalities).contains(selectedProvince.getProvinceName())){
+
+                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                        intent.putExtra("weather_id", selectedCity.getCityName());
+                        startActivity(intent);
+                    } else {
+                        queryCountyFromDB(selectedCity.getCityName());
+                    }
+                }else if (currentLevel == LEVEL_COUNTY){
+                    String weatherId = countyList.get(position).getWeatherId();
+                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id", weatherId);
+                    startActivity(intent);
                 }
             }
         });
@@ -143,56 +163,6 @@ public class ChooseAreaFragment extends Fragment{
             }
         });
         queryProvinceFromDB();
-    }
-
-
-    private void queryFromServer(String address, String type) {
-        showProgressDialog();
-        queryProvinceFromDB();
-        queryCityFromDB("江苏");
-        queryCountyFromDB("南京");
-//        HttpUtil.sendOkHttpGETRequest(address, new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        closeProgressDialog();
-//                        Toast.makeText(getContext(), "加载失败", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                String responseText = response.body().string();
-//                boolean result = false;
-//                if ("province".equals(type)){
-//                    result = Utility.handleProvinceResponse(responseText);
-//                }else if ("city".equals(type)){
-//                    result = Utility.handleCityResponse(responseText,
-//                    selectedProvince.getId());
-//                }else if ("county".equals(type)){
-//                    result = Utility.handleCountyResponse(responseText,
-//                            selectedCity.getId());
-//                }
-//                if (result){
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            closeProgressDialog();
-//                            if ("province".equals(type)){
-//                                queryProvinces();
-//                            }else if ("city".equals(type)){
-//                                queryCities();
-//                            }else if ("county".equals(type)){
-//                                queryCounties();
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
     }
 
     private void queryProvinceFromDB() {
@@ -235,57 +205,18 @@ public class ChooseAreaFragment extends Fragment{
 
     }
 
-    private void queryCountyFromDB(String cityName){
-        countyList = new ArrayList<>();
-        SQLiteDatabase weatherDB = null;
-        weatherDatabaseHelper = new WeatherDatabaseHelper(getContext(), "qianhu.db",null,1);
-        try{
-            weatherDB = weatherDatabaseHelper.getReadableDatabase();
-            String sql = "SELECT area_ch FROM HeFengWeatherCity WHERE belong_area_name_ch = '"+cityName+"' AND belong_area_name_ch != area_ch";
-            Cursor cursor = weatherDB.rawQuery(sql,null);
-            if (null  != cursor){
-                while (cursor.moveToNext()){
-                    County county = new County();
-                    String countyName = cursor.getString(cursor.getColumnIndex("area_ch"));
-                    county.setCountyName(countyName);
-                    countyList.add(county);
-                    Log.i("countyName", countyName);
-                }
-            }
-            cursor.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            if (null != weatherDB){
-                weatherDB.close();
-            }
-        }
-
-        tv_weather_area_title.setText(selectedCity.getCityName());
-        btn_back_weather_area.setVisibility(View.VISIBLE);
-        if (countyList.size() > 0){
-            dataList.clear();
-            for (County county : countyList){
-                dataList.add(county.getCountyName());
-            }
-            adapter.notifyDataSetChanged();
-            listview_weather_area.setSelection(0);
-            currentLevel = LEVEL_COUNTY;
-        }else {
-//            int provinceId = selectedProvince.getProvinceCode();
-//            int cityCode = selectedCity.getCityCode();
-//            String address = "http://guolin.teach/api/china/" + provinceId + "/" + cityCode;
-//            queryFromServer(address, "county");
-        }
-    }
-
     private void queryCityFromDB(String provinceName){
         cityList = new ArrayList<>();
         SQLiteDatabase weatherDB = null;
         weatherDatabaseHelper = new WeatherDatabaseHelper(getContext(), "qianhu.db",null,1);
         try{
             weatherDB = weatherDatabaseHelper.getReadableDatabase();
-            String sql = "SELECT area_ch FROM HeFengWeatherCity WHERE province_name_ch = '"+provinceName+"' AND belong_area_name_ch = area_ch";
+            String sql ;
+            if (Arrays.asList(municipalities).contains(provinceName)){
+                sql = "SELECT area_ch FROM HeFengWeatherCity WHERE province_name_ch = '"+provinceName+"' AND area_ch != province_name_ch";
+            }else {
+                sql = "SELECT area_ch FROM HeFengWeatherCity WHERE province_name_ch = '"+provinceName+"' AND belong_area_name_ch = area_ch";
+            }
             Cursor cursor = weatherDB.rawQuery(sql,null);
             if (null  != cursor){
                 while (cursor.moveToNext()){
@@ -321,6 +252,54 @@ public class ChooseAreaFragment extends Fragment{
 //            queryFromServer(address, "city");
         }
     }
+
+    private void queryCountyFromDB(String cityName){
+        countyList = new ArrayList<>();
+        SQLiteDatabase weatherDB = null;
+        weatherDatabaseHelper = new WeatherDatabaseHelper(getContext(), "qianhu.db",null,1);
+        try{
+            weatherDB = weatherDatabaseHelper.getReadableDatabase();
+            String sql = "SELECT area_ch,area_id FROM HeFengWeatherCity WHERE belong_area_name_ch = '"+cityName+"' AND belong_area_name_ch != area_ch";
+            Cursor cursor = weatherDB.rawQuery(sql,null);
+            if (null  != cursor){
+                while (cursor.moveToNext()){
+                    County county = new County();
+                    String countyName = cursor.getString(cursor.getColumnIndex("area_ch"));
+                    String countyId = cursor.getString(cursor.getColumnIndex("area_id"));
+                    county.setCountyName(countyName);
+                    county.setWeatherId(countyId);
+                    countyList.add(county);
+                    Log.i("countyName", countyName);
+                }
+            }
+            cursor.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if (null != weatherDB){
+                weatherDB.close();
+            }
+        }
+
+        tv_weather_area_title.setText(selectedCity.getCityName());
+        btn_back_weather_area.setVisibility(View.VISIBLE);
+        if (countyList.size() > 0){
+            dataList.clear();
+            for (County county : countyList){
+                dataList.add(county.getCountyName());
+            }
+            adapter.notifyDataSetChanged();
+            listview_weather_area.setSelection(0);
+            currentLevel = LEVEL_COUNTY;
+        }else {
+//            int provinceId = selectedProvince.getProvinceCode();
+//            int cityCode = selectedCity.getCityCode();
+//            String address = "http://guolin.teach/api/china/" + provinceId + "/" + cityCode;
+//            queryFromServer(address, "county");
+        }
+    }
+
+
 
     private void closeProgressDialog() {
         if (progressDialog != null){

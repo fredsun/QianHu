@@ -1,7 +1,10 @@
 package org.qianhu;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -17,6 +20,8 @@ import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.view.MenuItem;
 
+import org.qianhu.app.database.TransferDB;
+import org.qianhu.app.ui.activity.WeatherActivity;
 import org.qianhu.app.ui.fragment.ChooseAreaFragment;
 import org.qianhu.app.ui.fragment.DiscoverFragment;
 import org.qianhu.app.ui.fragment.HomeFragment;
@@ -51,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
         initViewPager();
         initNavigation();
+        TransferDB.transferDB(this);
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        if (prefs.getString("weather", null) != null){
+//            Intent intent = new Intent(this, WeatherActivity.class);
+//            startActivity(intent);
+//        }
     }
 
     private void initNavigation() {
