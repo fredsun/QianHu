@@ -1,17 +1,23 @@
 package org.qianhu.app.ui.activity;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
+import org.json.JSONObject;
 import org.qianhu.R;
 import org.qianhu.app.api.Utility;
 import org.qianhu.app.api.gson.Forecast;
@@ -19,9 +25,11 @@ import org.qianhu.app.api.gson.Weather;
 import org.qianhu.utils.HttpUtil;
 
 import java.io.IOException;
+import java.net.URL;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.HttpUrl;
 import okhttp3.Response;
 
 /**
@@ -40,10 +48,18 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView comfortText;
     private TextView carWashText;
     private TextView sportText;
+    private ImageView iv_bing_daily;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= 21){
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
         setContentView(R.layout.acitivity_weather);
         weatherLayout = (ScrollView) findViewById(R.id.scroll_weather);
         titleCity = (TextView) findViewById(R.id.tv_title_city);
@@ -56,6 +72,7 @@ public class WeatherActivity extends AppCompatActivity {
         comfortText= (TextView) findViewById(R.id.tv_comfort_text);
         carWashText = (TextView) findViewById(R.id.tv_car_cash_text);
         sportText = (TextView) findViewById(R.id.tv_sport_text);
+        iv_bing_daily = (ImageView) findViewById(R.id.iv_bing_daily);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
 //        if (weatherString != null){
@@ -67,6 +84,36 @@ public class WeatherActivity extends AppCompatActivity {
             weatherLayout.setVisibility(View.INVISIBLE);
             requestWeather(weatherId);
 //        }
+        String bingPic = prefs.getString("bing_pic", null);
+        if (bingPic != null){
+            Glide.with(this).load(bingPic).into(iv_bing_daily);
+        }else {
+            LoadBingPic();
+        }
+    }
+
+    private void LoadBingPic() {
+        String requestBingPic = "http://area.sinaapp.com/bingImg/";
+        HttpUtil.sendOkHttpGETRequest(requestBingPic, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String bingPic = String.valueOf(response.networkResponse().request().url().url());
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
+                editor.putString("bing_pic",bingPic);
+                editor.apply();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Glide.with(WeatherActivity.this).load(bingPic).into(iv_bing_daily);
+                    }
+                });
+            }
+        });
     }
 
     private void requestWeather(String weatherId) {
