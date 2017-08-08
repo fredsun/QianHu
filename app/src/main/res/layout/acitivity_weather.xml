@@ -9,7 +9,10 @@
         android:id="@+id/iv_bing_daily"
         android:scaleType="centerCrop"
         />
-
+<android.support.v4.widget.SwipeRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/swipe_refresh_weather">
     <ScrollView
         android:id="@+id/scroll_weather"
         android:layout_width="match_parent"
@@ -30,5 +33,5 @@
         </LinearLayout>
 
     </ScrollView>
-
+</android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>
